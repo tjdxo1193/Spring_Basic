@@ -3,6 +3,7 @@ package sungtae.data;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sungtae.data.service.MemberService;
+import sungtae.data.service.MemberService03;
 
 public class HelloSpring4DataApp03 {
     // mybatis3 를 이용한 프로젝트
@@ -20,14 +21,14 @@ public class HelloSpring4DataApp03 {
     // SqlSession : SQL 실행 또는 트랜잭션 관리 명령 실행
     // Mapping 파일 : SQL문과 OR Mapping 설정
 
-    // mybatis.org
+    // mybatis.org/mybatis-3
 
     // 회원 정보를 다루는 프로그램
     // App01 -> MemberService -> MemberDAO
     //             (MemberVO)
     public static void main(String[] args) {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring4data03.xml");
-        MemberService msrv = (MemberService) ctx.getBean("msrv");
+        MemberService03 msrv = (MemberService03) ctx.getBean("msrv03");
 
         //회원정보 생성
         System.out.println(msrv.newMember() );
