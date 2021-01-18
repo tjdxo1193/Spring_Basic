@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+<!-- 어노테이션 기반 bean 설정 -->
+    <context:component-scan base-package="sungtae.data.service, sungtae.data.dao" />
+<!--  표준 JDBC API : 소규모  -->
+
+    <!--  DBCP API : 대규모  -->
+    <bean id="dbcpDataSource"
+        class="org.apache.commons.dbcp2.BasicDataSource"
+        p:driverClassName="org.mariadb.jdbc.Driver"
+        p:url="jdbc:mariadb://mariadb.cmhqke6zpvyh.us-east-2.rds.amazonaws.com:3306/playground"
+        p:username="master" p:password="bigdata2020" />
+    <!--  JNDI API : 분산환경  -->
+
+    <!--  mybatis3 설정 #1  -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"
+        p:dataSource-ref="dbcpDataSource"
+        p:mapperLocations="classpath:mybatis3/MemberMapper.xml" />
+    <!--  mybatis3 설정 #2  -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" index="0" />
+
+    </bean>
+
+
+<!--  스프링 JDBC template 정의  -->
+
+</beans>

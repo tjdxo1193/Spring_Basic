@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import sungtae.data.dao.MemberDAO;
 import sungtae.data.vo.MemberVO;
 
+import java.util.List;
+
 
 @Service("msrv")
 public class MemberService {
@@ -43,6 +45,38 @@ public class MemberService {
         }
         // 회원정보삭제 (이름)
         public String removeMember() {
-            return null;
+
+            String result = "회원 정보 삭제 실패!";
+            String name = "일자매";
+
+            if (mdao.deleteMember(name) > 0)
+                result = "회원 정보 삭제 성공!";
+
+            return result;
         }
+    //회원정보 조회(아이디, 등급, 가입일)
+    public String readMember() {
+        StringBuilder sb = new StringBuilder();
+        String fmt = "%10s %10s %10s\n";
+
+        List<MemberVO> mvos = mdao.selectMember();
+        for (MemberVO m : mvos)
+            sb.append(String.format(fmt, m.getUserid(), m.getGrade(), m.getRegdate()));
+
+
+        return sb.toString();
     }
+
+
+    // 회원 정보 상세 조회( 아이디로 검색)
+    public String readOneMember() {
+        String result = "";
+        String fmt = "%10s %10s %10s %10s %10s\n";
+
+        MemberVO mvo = mdao.selectOneMember("spring4");
+
+        result = String.format(fmt, mvo.getUserid(), mvo.getName(), mvo.getGrade(), mvo.getPoints(), mvo.getRegdate());
+
+        return result;
+    }
+}
