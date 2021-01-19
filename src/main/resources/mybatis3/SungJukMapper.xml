@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sungjuk">
+    <insert id="insertSungJuk" statementType="PREPARED"
+    parameterType="sungtae.sungjuk.SungJukVO">
+        insert into sungjuk (name,kor,eng,mat, tot,mean,grd)
+        values (#{name},#{kor},#{eng},#{mat},#{tot},#{mean},#{grd})
+    </insert>
+    <update id="updateSungJuk" statementType="PREPARED"
+    parameterType="sungtae.sungjuk.SungJukVO">
+        update sungjuk
+        set kor = #{kor}, eng = #{eng}, mat = #{mat}, tot = #{tot}, mean = #{mean}, grd = #{}, regdate = sysdate()
+        where sjno = #{}
+    </update>
+    <delete id="deleteSungJuk" statementType="PREPARED"
+    parameterType="String">
+        delete from sungjuk where sjno = #{sjno};
+    </delete>
+
+    <select id="selectSungJuk" statementType="PREPARED"
+    resultType="sungtae.sungjuk.SungJukVO">
+        select sjno, name, kor, eng, mat, regdate from sungjuk order by sjno desc
+    </select>
+    <select id="selectOneSungJuk" statementType="PREPARED"
+            parameterType="String"
+            resultType="sungtae.sungjuk.SungJukVO">
+        select * from sungjuk where sjno = #{sjno}
+    </select>
+</mapper>
+
